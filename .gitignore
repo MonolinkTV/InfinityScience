@@ -5,3 +5,5 @@ build
 gradle
 .gradle
 .classpath
+InfinityScience_Client.launch
+InfinityScience_Server.launch
