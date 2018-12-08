@@ -1,8 +1,8 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "infsci",
+  "name": "Infinity Science",
+  "description": "A Futuristic/Modern day mod",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
