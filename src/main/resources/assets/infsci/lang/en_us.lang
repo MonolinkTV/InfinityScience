@@ -6,3 +6,5 @@ item.book_start.name=Infinite Knowledge
 
 //Blocks
 tile.block_marble.name=Marble
+tile.block_tinore.name=Tin Ore
+tile.block_copperore.name=Copper Ore
