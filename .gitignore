@@ -3,7 +3,9 @@ eclipse
 
 build
 gradle
+run
 .gradle
 .classpath
+.settings
 InfinityScience_Client.launch
 InfinityScience_Server.launch
