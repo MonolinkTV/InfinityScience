@@ -1,2 +1,5 @@
 //Creative Tabs
 itemGroup.infinitytab=Infinity Science
+
+//Items
+item.book_start.name=Infinite Knowledge
