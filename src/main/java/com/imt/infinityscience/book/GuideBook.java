@@ -21,7 +21,7 @@ public class GuideBook extends ItemBase
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
 	{
 		ItemStack item = playerIn.getHeldItem(handIn);
-		return new ActionResult(EnumActionResult.SUCCESS, null);
+		return new ActionResult(EnumActionResult.SUCCESS, item);
 	}
 
 }
