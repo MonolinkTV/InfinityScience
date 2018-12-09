@@ -22,7 +22,10 @@ public class GuideBook extends ItemBase
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
 	{
 		ItemStack item = playerIn.getHeldItem(handIn);
-		return playerIn.openGui(mod, modGuiId, world, x, y, z);
+
+		 playerIn.openGui(mod, modGuiId, world, x, y, z);
+
+		return new ActionResult(EnumActionResult.SUCCESS, item);
 	}
 
 }
