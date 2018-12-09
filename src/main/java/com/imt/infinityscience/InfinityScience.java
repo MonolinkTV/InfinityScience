@@ -14,9 +14,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = Global.MODID, name = Global.NAME, version = Global.VERSION)
 public class InfinityScience
 {
-	
+
 	public static final CreativeTabs infinitytab = new InfinityTab("infinitytab");
-	
+
 	@Instance
 	public static InfinityScience instance;
 

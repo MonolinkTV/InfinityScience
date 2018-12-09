@@ -20,6 +20,7 @@ public class GuideBook extends ItemBase
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
 	{
+		ItemStack item = playerIn.getHeldItem(handIn);
 		return null;
 		
 	}
