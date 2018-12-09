@@ -3,3 +3,6 @@ itemGroup.infinitytab=Infinity Science
 
 //Items
 item.book_start.name=Infinite Knowledge
+
+//Blocks
+tile.block_marble.name=Marble

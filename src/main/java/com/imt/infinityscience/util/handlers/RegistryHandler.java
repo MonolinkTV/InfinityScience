@@ -1,8 +1,10 @@
 package com.imt.infinityscience.util.handlers;
 
+import com.imt.infinityscience.blocks.InfinityBlocks;
 import com.imt.infinityscience.items.InfinityItems;
 import com.imt.infinityscience.util.interfaces.IHasModel;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -17,6 +19,12 @@ public class RegistryHandler
 	{
 		event.getRegistry().registerAll(InfinityItems.ITEMS.toArray(new Item[0]));
 	}
+	
+	@SubscribeEvent
+	public static void onBlockRegister(RegistryEvent.Register<Block> event)
+	{
+		event.getRegistry().registerAll(InfinityBlocks.BLOCKS.toArray(new Block[0]));
+	}
 
 	@SubscribeEvent
 	public static void onModelegister(ModelRegistryEvent event)
@@ -28,6 +36,14 @@ public class RegistryHandler
 				((IHasModel) item).registerModels();
 			}
 
+		}
+		
+		for(Block block : InfinityBlocks.BLOCKS) 
+		{
+			if(block instanceof IHasModel) 
+			{
+				((IHasModel) block).registerModels();
+			}
 		}
 	}
 }
