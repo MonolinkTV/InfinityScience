@@ -11,5 +11,5 @@ public class InfinityItems
 {
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	
-	public static final Item INFINITY_GUIDEBOOK = new ItemBase();
+	public static final Item INFINITY_GUIDEBOOK = new ItemBase("book_start");
 }
