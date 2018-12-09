@@ -15,13 +15,14 @@ public class GuideBook extends ItemBase
 	public GuideBook(String name)
 	{
 		super(name);
+		this.setMaxStackSize(1);
 	}
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
 	{
 		ItemStack item = playerIn.getHeldItem(handIn);
-		return new ActionResult(EnumActionResult.SUCCESS, null);
+		return playerIn.openGui(mod, modGuiId, world, x, y, z);
 	}
 
 }
