@@ -1,6 +1,0 @@
-{
-    "variants":
-    {
-        "variant=copper": { "model": "infsci:ore_overworld_copper" },
-        "variant=tin": { "model": "infsci:ore_overworld_tin" }
-}

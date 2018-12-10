@@ -32,7 +32,7 @@ public class InfinityScience
 	@EventHandler
 	public static void init(FMLInitializationEvent event)
 	{
-
+		System.out.println("INFINITY AND BEYOND!");
 	}
 
 	@EventHandler
