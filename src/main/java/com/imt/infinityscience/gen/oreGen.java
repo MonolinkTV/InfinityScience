@@ -28,7 +28,8 @@ public class oreGen implements IWorldGenerator
 		  break;
 		//Overworld
 		case 0:
-			runGenerator(InfinityBlocks.BLOCK_COPPERORE.getDefaultState(), 7, 10, 12, 50, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
+			runGenerator(InfinityBlocks.BLOCK_COPPERORE.getDefaultState(), 7, 10, 12, 70, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
+			runGenerator(InfinityBlocks.BLOCK_TINORE.getDefaultState(), 7, 10, 12, 70, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
 		  break;
 		//End
 		case 1:
@@ -39,7 +40,8 @@ public class oreGen implements IWorldGenerator
 		}
 	}
 	
-	private void runGenerator(IBlockState blockToGen, int blockAmount,  int chancesToSpawn, int minHeight, int maxHeight, Predicate<IBlockState> blockToReplace, World world, Random rand, int chunk_X, int chunk_Z){
+	private void runGenerator(IBlockState blockToGen, int blockAmount,  int chancesToSpawn, int minHeight, int maxHeight, Predicate<IBlockState> blockToReplace, World world, Random rand, int chunk_X, int chunk_Z)
+	{
 		if (minHeight < 0 || maxHeight > 256 || minHeight > maxHeight)
 			throw new IllegalArgumentException("Illegal Height Arguments for WorldGenerator");
 
