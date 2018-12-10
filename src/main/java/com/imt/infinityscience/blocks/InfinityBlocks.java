@@ -15,4 +15,6 @@ public class InfinityBlocks
 	//Ores
 	public static final Block BLOCK_COPPERORE =  new BlockBase("block_copperore", Material.GROUND);
 	public static final Block BLOCK_TINORE =  new BlockBase("block_tinore", Material.GROUND);
+	
+	public static final Block ORE_OVERWORLD = new InfinityOres("ore_overworld", "overworld");
 }

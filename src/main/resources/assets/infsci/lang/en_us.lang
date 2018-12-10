@@ -8,3 +8,7 @@ item.book_start.name=Infinite Knowledge
 tile.block_marble.name=Marble
 tile.block_tinore.name=Tin Ore
 tile.block_copperore.name=Copper Ore
+
+//Ores
+tile.ore_overworld_copper.name=Copper Ore
+tile.ore_overworld_tin.name=Tin Ore
