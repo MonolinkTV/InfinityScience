@@ -5,13 +5,12 @@ itemGroup.infinitytab=Infinity Science
 item.book_start.name=Infinite Knowledge
 item.ingot_tin.name=Tin Ingot
 item.ingot_copper.name=Copper Ingot
+item.material_iridium.name=Iridium
 
 //Blocks
 tile.block_marble.name=Marble
+
+//Ore
 tile.block_tinore.name=Tin Ore
 tile.block_copperore.name=Copper Ore
-
-//Ores
-tile.ore_overworld_copper.name=Copper Ore
-tile.ore_overworld_tin.name=Tin Ore
-tile.ore_overworld_iridium.name=Iridium Ore
+tile.block_iridiumore.name=Iridium Ore

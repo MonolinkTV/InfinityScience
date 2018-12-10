@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(modid = Global.MODID, name = Global.NAME, version = Global.VERSION)
 public class InfinityScience
@@ -29,7 +30,7 @@ public class InfinityScience
 	@EventHandler
 	public static void PreInit(FMLPreInitializationEvent event)
 	{
-
+		
 	}
 
 	@EventHandler
