@@ -11,5 +11,6 @@ public class InfinityRecipes {
 	public static void init() {
 		GameRegistry.addSmelting(InfinityBlocks.BLOCK_COPPERORE, new ItemStack(InfinityItems.INGOT_COPPER, 1), 1.5f);
 		GameRegistry.addSmelting(InfinityBlocks.BLOCK_TINORE, new ItemStack(InfinityItems.INGOT_TIN, 1), 1.5f);
+		GameRegistry.addSmelting(InfinityBlocks.BLOCK_IRIDIUMORE, new ItemStack(InfinityItems.MATERIAL_IRIDIUM, 1), 1.5f);
 	}
 }

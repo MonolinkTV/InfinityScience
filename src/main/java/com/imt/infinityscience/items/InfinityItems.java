@@ -18,6 +18,7 @@ public class InfinityItems
 	//Items
 	public static final Item INGOT_COPPER = new ItemBase("ingot_copper");
 	public static final Item INGOT_TIN = new ItemBase("ingot_tin");
+	public static final Item MATERIAL_IRIDIUM = new ItemBase("material_iridium");
 	
 	//Tools
 }

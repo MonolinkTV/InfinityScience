@@ -15,4 +15,5 @@ public class InfinityBlocks
 	//Ores
 	public static final Block BLOCK_COPPERORE =  new BlockBase("block_copperore", Material.ROCK);
 	public static final Block BLOCK_TINORE =  new BlockBase("block_tinore", Material.ROCK);
+	public static final Block BLOCK_IRIDIUMORE =  new BlockBase("block_iridiumore", Material.ROCK);
 }

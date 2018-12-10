@@ -30,6 +30,7 @@ public class oreGen implements IWorldGenerator
 		case 0:
 			runGenerator(InfinityBlocks.BLOCK_COPPERORE.getDefaultState(), 7, 10, 12, 70, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
 			runGenerator(InfinityBlocks.BLOCK_TINORE.getDefaultState(), 7, 10, 12, 70, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
+			runGenerator(InfinityBlocks.BLOCK_IRIDIUMORE.getDefaultState(), 7, 10, 12, 70, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
 		  break;
 		//End
 		case 1:
