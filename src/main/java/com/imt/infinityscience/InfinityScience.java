@@ -3,6 +3,7 @@ package com.imt.infinityscience;
 import com.imt.infinityscience.gen.oreGen;
 import com.imt.infinityscience.proxy.CommonProxy;
 import com.imt.infinityscience.recipes.InfinityRecipes;
+import com.imt.infinityscience.util.compat.OreDictionaryCompat;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
@@ -30,7 +31,7 @@ public class InfinityScience
 	@EventHandler
 	public static void PreInit(FMLPreInitializationEvent event)
 	{
-		
+		OreDictionaryCompat.registerOres();
 	}
 
 	@EventHandler

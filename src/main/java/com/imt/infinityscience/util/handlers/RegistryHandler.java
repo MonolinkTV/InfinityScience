@@ -2,6 +2,7 @@ package com.imt.infinityscience.util.handlers;
 
 import com.imt.infinityscience.blocks.InfinityBlocks;
 import com.imt.infinityscience.items.InfinityItems;
+import com.imt.infinityscience.util.compat.OreDictionaryCompat;
 import com.imt.infinityscience.util.interfaces.IHasModel;
 
 import net.minecraft.block.Block;
