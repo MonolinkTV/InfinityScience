@@ -12,5 +12,12 @@ public class InfinityItems
 {
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	
+	//Book
 	public static final Item INFINITY_GUIDEBOOK = new GuideBook("book_start");
+	
+	//Items
+	public static final Item INGOT_COPPER = new ItemBase("ingot_copper");
+	public static final Item INGOT_TIN = new ItemBase("ingot_tin");
+	
+	//Tools
 }
