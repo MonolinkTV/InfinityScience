@@ -3,9 +3,14 @@ itemGroup.infinitytab=Infinity Science
 
 //Items
 item.book_start.name=Infinite Knowledge
+
+//Materials
+item.material_iridium.name=Iridium
+
+//Ingots
 item.ingot_tin.name=Tin Ingot
 item.ingot_copper.name=Copper Ingot
-item.material_iridium.name=Iridium
+item.ingot_steel.name=Steel Ingot
 
 //Blocks
 tile.block_marble.name=Marble

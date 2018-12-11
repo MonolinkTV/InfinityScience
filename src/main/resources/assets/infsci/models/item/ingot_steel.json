@@ -2,6 +2,6 @@
     "parent": "item/generated",
     "textures":
     {
-        "layer0": "infsci:items/PLACEHOLDER"
+        "layer0": "infsci:items/ingot_steel"
     }
 }

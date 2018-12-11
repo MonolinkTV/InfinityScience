@@ -28,9 +28,9 @@ public class oreGen implements IWorldGenerator
 		  break;
 		//Overworld
 		case 0:
-			runGenerator(InfinityBlocks.BLOCK_COPPERORE.getDefaultState(), 7, 10, 12, 70, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
-			runGenerator(InfinityBlocks.BLOCK_TINORE.getDefaultState(), 7, 10, 12, 70, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
-			runGenerator(InfinityBlocks.BLOCK_IRIDIUMORE.getDefaultState(), 7, 10, 12, 70, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
+			runGenerator(InfinityBlocks.BLOCK_COPPERORE.getDefaultState(), 10, 15, 15, 88, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
+			runGenerator(InfinityBlocks.BLOCK_TINORE.getDefaultState(), 9, 12, 15, 78, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
+			runGenerator(InfinityBlocks.BLOCK_IRIDIUMORE.getDefaultState(), 2, 4, 5, 44, BlockMatcher.forBlock(Blocks.STONE), world, random, chunkX, chunkZ);
 		  break;
 		//End
 		case 1:
