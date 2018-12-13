@@ -12,5 +12,7 @@ public class OreDictionaryCompat {
 		//Ores
 		OreDictionary.registerOre("oreCopper", InfinityBlocks.BLOCK_COPPERORE);
 		OreDictionary.registerOre("oreTin", InfinityBlocks.BLOCK_TINORE);
+		OreDictionary.registerOre("oreIridium", InfinityBlocks.BLOCK_IRIDIUMORE);
+		
 	}
 }
