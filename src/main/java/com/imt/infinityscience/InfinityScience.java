@@ -4,6 +4,7 @@ import com.imt.infinityscience.gen.oreGen;
 import com.imt.infinityscience.proxy.CommonProxy;
 import com.imt.infinityscience.recipes.InfinityRecipes;
 import com.imt.infinityscience.util.compat.OreDictionaryCompat;
+import com.imt.infinityscience.util.handlers.GuiHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
@@ -13,8 +14,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(modid = Global.MODID, name = Global.NAME, version = Global.VERSION)
 public class InfinityScience
@@ -38,6 +39,7 @@ public class InfinityScience
 	public static void init(FMLInitializationEvent event)
 	{
 		GameRegistry.registerWorldGenerator(new oreGen(), 0);
+		NetworkRegistry.INSTANCE.registerGuiHandler(InfinityScience.instance, new GuiHandler());
 		InfinityRecipes.init();
 		System.out.println("INFINITY AND BEYOND!");
 	}

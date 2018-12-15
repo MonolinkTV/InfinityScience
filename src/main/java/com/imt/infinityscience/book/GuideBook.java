@@ -2,19 +2,19 @@ package com.imt.infinityscience.book;
 
 import com.imt.infinityscience.InfinityScience;
 import com.imt.infinityscience.items.itemsubclasses.ItemBase;
+import com.imt.infinityscience.util.handlers.GuiHandler;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GuideBook extends ItemBase
 {
 	
-	@SideOnly(Side.CLIENT)
+	//@SideOnly(Side.CLIENT)
 	//public static IBookletPage forcedPage;
 
 	public GuideBook(String name)
@@ -28,7 +28,7 @@ public class GuideBook extends ItemBase
 	{
 		ItemStack item = playerIn.getHeldItem(handIn);
 
-		//playerIn.openGui(InfinityScience.instance, GUIHandler.GuiTypes.BOOK, worldIn, x, y, z);
+		playerIn.openGui(InfinityScience.instance, GuiHandler.INFINITY_SCIENCE_BOOK, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
 
 		return new ActionResult(EnumActionResult.SUCCESS, item);
 	}
