@@ -61,19 +61,14 @@ public class BookPage {
 	
 	// Called same as drawGuiContainerBackgroundLayer()
 	public void drawPage(float partialTicks, int mouseX, int mouseY, GUI_Book gui) {
+		// NOTE: may want to draw different arrow when disabled, so just add else with the magic
 		if (enablePrevArrow) {
-			if (!canGoBack())
-				GlStateManager.color(0.75f, 0.75f, 0.75f);
-			else
-				GlStateManager.color(1.0f, 1.0f, 1.0f);
-			gui.drawTexturedModalRect(gui.getGuiLeft() + leftArrowGuiPos.first(), gui.getGuiTop() + leftArrowGuiPos.second(), leftArrow.x, leftArrow.y, leftArrow.width, leftArrow.height);
+			if (canGoBack())
+				gui.drawTexturedModalRect(gui.getGuiLeft() + leftArrowGuiPos.first(), gui.getGuiTop() + leftArrowGuiPos.second(), leftArrow.x, leftArrow.y, leftArrow.width, leftArrow.height);
 		}
 		if (enableNextArrow) {
-			if (!canGoForward())
-				GlStateManager.color(0.75f, 0.75f, 0.75f);
-			else
-				GlStateManager.color(1.0f, 1.0f, 1.0f);
-			gui.drawTexturedModalRect(gui.getGuiLeft() + rightArrowGuiPos.first(), gui.getGuiTop() + rightArrowGuiPos.second(), rightArrow.x, rightArrow.y, rightArrow.width, rightArrow.height);
+			if (canGoForward())
+				gui.drawTexturedModalRect(gui.getGuiLeft() + rightArrowGuiPos.first(), gui.getGuiTop() + rightArrowGuiPos.second(), rightArrow.x, rightArrow.y, rightArrow.width, rightArrow.height);
 		}
 		
 		GlStateManager.color(1.0f, 1.0f, 1.0f);
