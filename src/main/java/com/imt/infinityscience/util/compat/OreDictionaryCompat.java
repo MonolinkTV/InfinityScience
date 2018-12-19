@@ -14,5 +14,10 @@ public class OreDictionaryCompat {
 		OreDictionary.registerOre("oreTin", InfinityBlocks.BLOCK_TINORE);
 		OreDictionary.registerOre("oreIridium", InfinityBlocks.BLOCK_IRIDIUMORE);
 		
+		//Ingots
+		OreDictionary.registerOre("ingotCopper", InfinityItems.INGOT_COPPER);
+		OreDictionary.registerOre("ingotTin", InfinityItems.INGOT_TIN);
+		OreDictionary.registerOre("ingotSteel", InfinityItems.INGOT_STEEL);
+		
 	}
 }
