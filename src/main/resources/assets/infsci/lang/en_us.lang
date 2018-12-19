@@ -14,6 +14,11 @@ item.ingot_steel.name=Steel Ingot
 
 //Blocks
 tile.block_marble.name=Marble
+tile.block_basalt.name=Basalt
+
+//Tiled
+tile.marble_tiled.name=Marble
+tile.basalt_tiled.name=Marble
 
 //Ore
 tile.block_tinore.name=Tin Ore

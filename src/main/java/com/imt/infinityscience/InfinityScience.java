@@ -32,7 +32,7 @@ public class InfinityScience
 	@EventHandler
 	public static void PreInit(FMLPreInitializationEvent event)
 	{
-		OreDictionaryCompat.registerOres();
+		
 	}
 
 	@EventHandler
@@ -42,6 +42,7 @@ public class InfinityScience
 		NetworkRegistry.INSTANCE.registerGuiHandler(InfinityScience.instance, new GuiHandler());
 		InfinityRecipes.init();
 		System.out.println("INFINITY AND BEYOND!");
+		OreDictionaryCompat.registerOres();
 	}
 
 	@EventHandler
