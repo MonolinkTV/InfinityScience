@@ -1,6 +1,6 @@
 {
    "parent": "block/cube_all",
    "textures": {
-       "all": "infsci:blocks/tiled_basalt"
+       "all": "infsci:blocks/basalt_tiled"
    }
 }
