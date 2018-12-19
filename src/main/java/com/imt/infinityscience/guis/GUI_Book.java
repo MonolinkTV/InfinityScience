@@ -23,15 +23,7 @@ import scala.tools.nsc.typechecker.MethodSynthesis.MethodSynth.Getter;
 
 
 public class GUI_Book extends GuiContainer {
-	// Texture And GUI Positions
-	BookTextureData leftArrow = new BookTextureData(null, 111, 0, 17, 9);
-	BookTextureData rightArrow = new BookTextureData(null, 129, 0, 17, 9);
-	Pair<Integer, Integer> leftArrowGuiPos = new Pair(5, 150-leftArrow.height);
-	Pair<Integer, Integer> rightArrowGuiPos = new Pair(104-rightArrow.width, 150-rightArrow.height);
-	
-	public int pageStringColor = 4210752;
-	
-	// static so currentPage stay when closing and reopening the book (persistent page)
+	// Static so currentPage stay when closing and reopening the book (persistent page)
 	protected static BookPage currentPage = new Book_MainPage();
 	
 	// Variables
@@ -59,9 +51,6 @@ public class GUI_Book extends GuiContainer {
 
 		this.mc.getTextureManager().bindTexture(textures);
 		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-		// Maybe gray out or hide next/previous buttons if !currPage.canGoXXX()
-		this.drawTexturedModalRect(this.guiLeft + leftArrowGuiPos.first(), this.guiTop + leftArrowGuiPos.second(), leftArrow.x, leftArrow.y, leftArrow.width, leftArrow.height);
-		this.drawTexturedModalRect(this.guiLeft + rightArrowGuiPos.first(), this.guiTop + rightArrowGuiPos.second(), rightArrow.x, rightArrow.y, rightArrow.width, rightArrow.height);
 		
 		getCurrentPage().drawPage(partialTicks, mouseX, mouseY, this);
 	}
@@ -74,23 +63,7 @@ public class GUI_Book extends GuiContainer {
 	
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		int guiMouseX = mouseX - this.guiLeft;
-		int guiMouseY = mouseY - this.guiTop;
-		if (currentPage.canGoBack() &&
-			guiMouseX > leftArrowGuiPos.first() && guiMouseX < leftArrowGuiPos.first() + leftArrow.width &&
-			guiMouseY > leftArrowGuiPos.second() && guiMouseY < leftArrowGuiPos.second() + leftArrow.height) {
-			BookPage newPage = currentPage.prevPage();
-			if (newPage != null) {
-				currentPage = newPage;
-			}
-		} else if (currentPage.canGoForward() &&
-				   guiMouseX > rightArrowGuiPos.first() && guiMouseX < rightArrowGuiPos.first() + rightArrow.width &&
-				   guiMouseY > rightArrowGuiPos.second() && guiMouseY < rightArrowGuiPos.second() + rightArrow.height) {
-			BookPage newPage = currentPage.nextPage();
-			if (newPage != null) {
-				currentPage = newPage;
-			}
-		} else if (currentPage.pageClicked(mouseX, mouseY, mouseButton, this)) {
+		if (currentPage.pageClicked(mouseX, mouseY, mouseButton, this)) {
 			// do nothing, currentPage sorted it out.
 		} else {
 			super.mouseClicked(mouseX, mouseY, mouseButton);

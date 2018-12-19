@@ -14,9 +14,10 @@ import scala.actors.threadpool.Arrays;
 // TODO: Text wrapping (not that simple D:)
 
 public class BookPage_List extends BookPage {
-	protected String title = null;
 	protected Pair<Integer, Integer> listStartPos = new Pair(5, 5); // Based on GUI size
 	protected Pair<Integer, Integer> listEndPos = new Pair(103, 140); // Based on GUI size
+	
+	protected String title = null;
 	protected ArrayList<Pair<BookPage, BookPage_ListItem>> contents;
 	
 	ArrayList<ArrayList<Pair<Integer, Pair<BookPage, BookPage_ListItem>>>> cachePages; 
@@ -26,6 +27,9 @@ public class BookPage_List extends BookPage {
 	
 	public BookPage_List() {
 		// WARNING: some reason mine craft is like NO to using my calculateCache methods in constructor (here), not a good idea anyway
+		
+		this.enableNextArrow = true;
+		this.enablePrevArrow = true;
 	}
 	
 	protected void calculateCacheItemSeperation() {
@@ -99,6 +103,7 @@ public class BookPage_List extends BookPage {
 
 	@Override
 	public boolean canGoForward() {
+		calculateCacheIfNotCalculated();
 		return this.pageIndex < this.cachePages.size()-1;
 	}
 
@@ -131,6 +136,8 @@ public class BookPage_List extends BookPage {
 
 	@Override
 	public void drawPage(float partialTicks, int mouseX, int mouseY, GUI_Book gui) {
+		super.drawPage(partialTicks, mouseX, mouseY, gui);
+		
 		calculateCacheIfNotCalculated();
 		
 		// NOTE: when drawing first item in the page always ignores cacheSeperation
@@ -158,7 +165,7 @@ public class BookPage_List extends BookPage {
 			gui.mc.fontRenderer.drawString(item.name,
 					x + iconWidth,
 					y,
-					gui.pageStringColor);
+					item.nameColor);
 			
 			lastY = y;
 		}
@@ -203,6 +210,8 @@ public class BookPage_List extends BookPage {
 	
 	@Override
 	public boolean pageClicked(int mouseX, int mouseY, int mouseButton, GUI_Book gui) {
+		super.pageClicked(mouseX, mouseY, mouseButton, gui);
+		
 		calculateCacheIfNotCalculated();
 		
 		// NOTE: this is the same as normally drawing the content name's and icon's but doing actions if desired in contents depended on mouse click
@@ -250,6 +259,7 @@ class BookPage_ListItem {
 	public String name;
 	public String description;
 	public BookTextureData icon;
+	public int nameColor = 4210752;
 
 	public BookPage_ListItem(String name, String description, BookTextureData icon) {
 		this.name = name;
