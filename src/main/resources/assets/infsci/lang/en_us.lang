@@ -6,6 +6,19 @@ item.book_start.name=Infinite Knowledge
 
 //Materials
 item.material_iridium.name=Iridium
+item.material_lithium.name=Lithium
+item.material_sodium.name=Sodium
+item.material_potassium.name=Potassium
+item.material_rubidium.name=Rubidium
+item.material_cesium.name=Cesium
+item.material_francium.name=Francium
+item.material_beryllium.name=Beryllium
+item.material_calcium.name=Calcium
+item.material_strontium.name=Strontium
+item.material_barium.name=Barium
+item.material_radium.name=Radium
+
+
 
 //Ingots
 item.ingot_tin.name=Tin Ingot

@@ -18,8 +18,19 @@ public class InfinityItems
 	//Items
 	public static final Item INGOT_COPPER = new ItemBase("ingot_copper");
 	public static final Item INGOT_TIN = new ItemBase("ingot_tin");
-	public static final Item MATERIAL_IRIDIUM = new ItemBase("material_iridium");
 	public static final Item INGOT_STEEL = new ItemBase("ingot_steel");
+	public static final Item MATERIAL_IRIDIUM = new ItemBase("material_iridium");
+	public static final Item MATERIAL_LITHIUM = new ItemBase("material_lithium");
+	public static final Item MATERIAL_SODIUM = new ItemBase("material_sodium");
+	public static final Item MATERIAL_POTASSIUM = new ItemBase("material_potassium");
+	public static final Item MATERIAL_RUBIDIUM = new ItemBase("material_rubidium");
+	public static final Item MATERIAL_CESIUM = new ItemBase("material_cesium");
+	public static final Item MATERIAL_FRANCIUM = new ItemBase("material_francium");
+	public static final Item MATERIAL_BERYLLIUM = new ItemBase("material_beryllium");
+	public static final Item MATERIAL_CALCIUM = new ItemBase("material_calcium");
+	public static final Item MATERIAL_STRONTIUM = new ItemBase("material_strontium");
+	public static final Item MATERIAL_BARIUM = new ItemBase("material_barium");
+	public static final Item MATERIAL_RADIUM = new ItemBase("material_radium");
 	
 	//Tools
 }
