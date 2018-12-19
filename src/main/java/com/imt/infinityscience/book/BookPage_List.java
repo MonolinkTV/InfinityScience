@@ -20,6 +20,7 @@ public class BookPage_List extends BookPage {
 	protected String title = null;
 	protected ArrayList<Pair<BookPage, BookPage_ListItem>> contents;
 	
+	// NOTE: maybe set as static? so they don't get calculated multiple times after closing and reopening GUI
 	ArrayList<ArrayList<Pair<Integer, Pair<BookPage, BookPage_ListItem>>>> cachePages; 
 	ArrayList<Integer> cacheItemSeperation;
 	
