@@ -18,7 +18,7 @@ tile.block_basalt.name=Basalt
 
 //Tiled
 tile.marble_tiled.name=Tiled Marble
-tile.basalt_tiled.name=Tiled Marble
+tile.basalt_tiled.name=Tiled Basalt
 
 //Ore
 tile.block_tinore.name=Tin Ore
