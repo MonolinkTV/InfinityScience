@@ -21,7 +21,7 @@ import net.minecraft.item.Item;
 
 public class BookPage_Content extends BookPage {
 	// NOTE when implementing: may want an internal class to wrap all these supported types so code is cleaner? (class BookPage_ConentItem {})
-	ArrayList content; // TODO: add typing for a list of optional types of items
+	ArrayList content; // TODO: add typing for a list of optional types of items (or if i use BookPage_ConentItem just use that)
 	
 	public BookPage_Content() {
 		
