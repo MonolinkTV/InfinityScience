@@ -76,4 +76,9 @@ public class BookPage {
 	
 	// Called same as drawScreen()
 	public void drawPageTop(float partialTicks, int mouseX, int mouseY, GUI_Book gui) {}
+	
+	// Helper/Convenience method
+	protected void setCurrentPage(BookPage page) {
+		GUI_Book.currentPage = page;
+	}
 }

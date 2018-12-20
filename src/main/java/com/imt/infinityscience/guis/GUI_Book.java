@@ -23,8 +23,8 @@ import scala.tools.nsc.typechecker.MethodSynthesis.MethodSynth.Getter;
 
 
 public class GUI_Book extends GuiContainer {
-	// Static so currentPage stay when closing and reopening the book (persistent page)
-	protected static BookPage currentPage = new Book_MainPage();
+	// Static so currentPage stay when closing and reopening the book (persistent page) (public so BookPage can set it and maybe else where)
+	public static BookPage currentPage = new Book_MainPage();
 	
 	// Variables
 	ResourceLocation textures = new ResourceLocation(Global.MODID, "textures/gui/book_base_assets.png");

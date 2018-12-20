@@ -19,8 +19,6 @@ public class Book_MainPage extends BookPage_List {
 	BookTextureData icon_threeStar = new BookTextureData(iconTextures, 96, 0, 32, 32, textHight, textHight);
 	
 	public Book_MainPage() {
-		// NOTE: i may want some page's to be static-like (ones witch its contents ever change's)
-		//       Not assigned on object creation but assigned above (don't know the name)
 		createList();
 	}
 	
@@ -29,6 +27,7 @@ public class Book_MainPage extends BookPage_List {
 		this.pageIndex = 0;
 		
 		this.addNewListItem(null, "Long Desc Item", "Some rather long description\nfor no really good reason\nother than to test how it looks\nhope it works well.", icon_sixStar);
+		this.addNewListItem(Book_TestPage.class, "Goto Book_TestPage", "Name said it all", null);
 		this.addNewListItem(null, "Test Item A", "Test Desc\nA", icon_sixStar);
 		this.addNewListItem(null, "Test Item B", "Test Desc\nB", icon_rArrow);
 		this.addNewListItem(null, "Test Item C", "Test Desc\nC", null);

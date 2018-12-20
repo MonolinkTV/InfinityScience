@@ -1,8 +1,10 @@
 package com.imt.infinityscience.book;
 
 import java.awt.List;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import com.imt.infinityscience.book.pages.Book_MainPage;
 import com.imt.infinityscience.guis.GUI_Book;
 
 import akka.japi.Pair;
@@ -23,10 +25,10 @@ public class BookPage_List extends BookPage {
 	protected Pair<Integer, Integer> listEndPos = new Pair(103, 140); // Based on GUI size
 	
 	protected String title = null; // TODO
-	protected ArrayList<Pair<BookPage, BookPage_ListItem>> contents;
+	protected ArrayList<Pair<Class<? extends BookPage>, BookPage_ListItem>> contents;
 	
 	// NOTE: maybe set as static? so they don't get calculated multiple times after changing page's (not pageIndex)
-	ArrayList<ArrayList<Pair<Integer, Pair<BookPage, BookPage_ListItem>>>> cachePages; 
+	ArrayList<ArrayList<Pair<Integer, Pair<Class<? extends BookPage>, BookPage_ListItem>>>> cachePages; 
 	ArrayList<Integer> cacheItemSeperation;
 	
 	protected int pageIndex;
@@ -64,7 +66,7 @@ public class BookPage_List extends BookPage {
 				continue;
 			}
 			
-			Pair<BookPage, BookPage_ListItem> pair = this.contents.get(i-1);
+			Pair<Class<? extends BookPage>, BookPage_ListItem> pair = this.contents.get(i-1);
 			BookPage_ListItem item = pair.second();
 			
 			int iconHeight = getIconHeight(item.icon);
@@ -80,10 +82,10 @@ public class BookPage_List extends BookPage {
 		Minecraft mc = Minecraft.getMinecraft();
 		
 		this.cachePages = new ArrayList();
-		ArrayList<Pair<Integer, Pair<BookPage, BookPage_ListItem>>> currentPage = new ArrayList();
+		ArrayList<Pair<Integer, Pair<Class<? extends BookPage>, BookPage_ListItem>>> currentPage = new ArrayList();
 		int currentY = this.listStartPos.second();
 		for (int i = 0; i < this.contents.size(); i++) {
-			Pair<BookPage, BookPage_ListItem> pair = this.contents.get(i);
+			Pair<Class<? extends BookPage>, BookPage_ListItem> pair = this.contents.get(i);
 			BookPage_ListItem item = pair.second();
 			
 			if (currentPage.size() > 0)
@@ -146,10 +148,10 @@ public class BookPage_List extends BookPage {
 		calculateCacheIfNotCalculated();
 		
 		// NOTE: when drawing first item in the page always ignores cacheSeperation
-		ArrayList<Pair<Integer, Pair<BookPage, BookPage_ListItem>>> currentPageCache = this.cachePages.get(this.pageIndex);
+		ArrayList<Pair<Integer, Pair<Class<? extends BookPage>, BookPage_ListItem>>> currentPageCache = this.cachePages.get(this.pageIndex);
 		int lastY = gui.getGuiTop() + this.listStartPos.second(); // Not best way but it will work just fine
 		for (int i=0; i < currentPageCache.size(); i++) {
-			Pair<Integer, Pair<BookPage, BookPage_ListItem>> pair = currentPageCache.get(i);
+			Pair<Integer, Pair<Class<? extends BookPage>, BookPage_ListItem>> pair = currentPageCache.get(i);
 			Integer contentIndex = pair.first();
 			BookPage_ListItem item = pair.second().second();
 			
@@ -205,10 +207,10 @@ public class BookPage_List extends BookPage {
 		
 		// NOTE: when drawing first item in the page always ignores cacheSeperation
 		// NOTE: this is the same as normally drawing the content name's and icon's but drawing different stuff depended on mouse position
-		ArrayList<Pair<Integer, Pair<BookPage, BookPage_ListItem>>> currentPageCache = this.cachePages.get(this.pageIndex);
+		ArrayList<Pair<Integer, Pair<Class<? extends BookPage>, BookPage_ListItem>>> currentPageCache = this.cachePages.get(this.pageIndex);
 		int lastY = gui.getGuiTop() + this.listStartPos.second(); // Not best way but it will work just fine
 		for (int i=0; i < currentPageCache.size(); i++) {
-			Pair<Integer, Pair<BookPage, BookPage_ListItem>> pair = currentPageCache.get(i);
+			Pair<Integer, Pair<Class<? extends BookPage>, BookPage_ListItem>> pair = currentPageCache.get(i);
 			Integer contentIndex = pair.first();
 			BookPage_ListItem item = pair.second().second();
 			
@@ -240,12 +242,14 @@ public class BookPage_List extends BookPage {
 		calculateCacheIfNotCalculated();
 		
 		// NOTE: this is the same as normally drawing the content name's and icon's but doing actions if desired in contents depended on mouse click
-		ArrayList<Pair<Integer, Pair<BookPage, BookPage_ListItem>>> currentPageCache = this.cachePages.get(this.pageIndex);
+		ArrayList<Pair<Integer, Pair<Class<? extends BookPage>, BookPage_ListItem>>> currentPageCache = this.cachePages.get(this.pageIndex);
 		int lastY = gui.getGuiTop() + this.listStartPos.second(); // Not best way but it will work just fine
 		for (int i=0; i < currentPageCache.size(); i++) {
-			Pair<Integer, Pair<BookPage, BookPage_ListItem>> pair = currentPageCache.get(i);
+			Pair<Integer, Pair<Class<? extends BookPage>, BookPage_ListItem>> pair = currentPageCache.get(i);
+			Pair<Class<? extends BookPage>, BookPage_ListItem> bookPair = pair.second();
+			Class<? extends BookPage> desieredPage = bookPair.first();
 			Integer contentIndex = pair.first();
-			BookPage_ListItem item = pair.second().second();
+			BookPage_ListItem item = bookPair.second();
 			
 			int iconWidth = getIconWidth(item.icon);
 			int iconHeight = getIconHeight(item.icon);
@@ -259,7 +263,10 @@ public class BookPage_List extends BookPage {
 			if (addY < iconHeight) addY = iconHeight;
 			if (mouseX > x && mouseX < x+gui.mc.fontRenderer.getStringWidth(item.name)+iconWidth &&
 				mouseY > y && mouseY < y+gui.mc.fontRenderer.FONT_HEIGHT) {
-				// TODO: call a callback or some thing for if a list item was clicked
+				BookPage newPage = ContentItemClicked(item, desieredPage);
+				if (newPage != null) {
+					this.setCurrentPage(newPage);
+				}
 				break;
 			}
 			
@@ -268,16 +275,24 @@ public class BookPage_List extends BookPage {
 		return false;
 	}
 	
-	// Helper/Convenience method
-	protected void addNewListItem(BookPage page, String name, String description, BookTextureData icon) {
-		BookPage_ListItem item = new BookPage_ListItem(name, description, icon);
-		this.contents.add(new Pair(page, item));
+	// Callback (can be override for any other use)
+	protected BookPage ContentItemClicked(BookPage_ListItem item, Class<? extends BookPage> desieredPageClass) {
+		if (desieredPageClass != null) {
+			try {
+				return desieredPageClass.getConstructor().newInstance();
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+					| NoSuchMethodException | SecurityException e) {
+				e.printStackTrace();
+				return null;
+			}
+		} // else
+		return null;
 	}
 	
 	// Helper/Convenience method
-	protected void addNewListItem(BookPage page, String name, String description, BookTextureData icon, int nameColor) {
-		BookPage_ListItem item = new BookPage_ListItem(name, description, icon, nameColor);
-		this.contents.add(new Pair(page, item));
+	protected void addNewListItem(Class<? extends BookPage> pageClass, String name, String description, BookTextureData icon) {
+		BookPage_ListItem item = new BookPage_ListItem(name, description, icon);
+		this.contents.add(new Pair(pageClass, item));
 	}
 }
 
