@@ -7,7 +7,12 @@ import com.imt.infinityscience.guis.GUI_Book;
 
 import akka.japi.Pair;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.ITextureObject;
+import net.minecraft.client.renderer.texture.SimpleTexture;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import scala.Console;
 import scala.actors.threadpool.Arrays;
 
@@ -17,10 +22,10 @@ public class BookPage_List extends BookPage {
 	protected Pair<Integer, Integer> listStartPos = new Pair(5, 5); // Based on GUI size
 	protected Pair<Integer, Integer> listEndPos = new Pair(103, 140); // Based on GUI size
 	
-	protected String title = null;
+	protected String title = null; // TODO
 	protected ArrayList<Pair<BookPage, BookPage_ListItem>> contents;
 	
-	// NOTE: maybe set as static? so they don't get calculated multiple times after closing and reopening GUI
+	// NOTE: maybe set as static? so they don't get calculated multiple times after changing page's (not pageIndex)
 	ArrayList<ArrayList<Pair<Integer, Pair<BookPage, BookPage_ListItem>>>> cachePages; 
 	ArrayList<Integer> cacheItemSeperation;
 	
@@ -33,6 +38,20 @@ public class BookPage_List extends BookPage {
 		this.enablePrevArrow = true;
 	}
 	
+	private int getIconHeight(BookTextureData icon) {
+		if (icon != null) {
+			return icon.height;
+		}
+		return 0;
+	}
+	
+	private int getIconWidth(BookTextureData icon) {
+		if (icon != null) {
+			return icon.width;
+		}
+		return 0;
+	}
+	
 	protected void calculateCacheItemSeperation() {
 		Minecraft mc = Minecraft.getMinecraft();
 		
@@ -40,7 +59,7 @@ public class BookPage_List extends BookPage {
 		for (int i = 0; i < this.contents.size(); i++) {
 			// Get previous item to get current item separation from previous item (more math because we draw from topLeft)
 			// BUT if there is no previous then we just use 0 (NOTE: when drawing first item in the page always ignores cacheSeperation)
-			if (i-1 < 0) { // Currently only if i == 0 but being sure is nice
+			if (i == 0) {
 				this.cacheItemSeperation.add(0);
 				continue;
 			}
@@ -48,19 +67,12 @@ public class BookPage_List extends BookPage {
 			Pair<BookPage, BookPage_ListItem> pair = this.contents.get(i-1);
 			BookPage_ListItem item = pair.second();
 			
-			int iconHeight = 0;
-			if (item.icon != null) {
-				iconHeight = item.icon.height;
-			}
+			int iconHeight = getIconHeight(item.icon);
+			int height = mc.fontRenderer.FONT_HEIGHT;
+			if (height <= iconHeight)
+				height = iconHeight+1;
 			
-			int height;
-			if (iconHeight > mc.fontRenderer.FONT_HEIGHT) {
-				height = iconHeight;
-			} else {
-				height = mc.fontRenderer.FONT_HEIGHT;
-			};
-			
-			this.cacheItemSeperation.add(i, height);
+			this.cacheItemSeperation.add(height);
 		};
 	}
 	
@@ -74,18 +86,10 @@ public class BookPage_List extends BookPage {
 			Pair<BookPage, BookPage_ListItem> pair = this.contents.get(i);
 			BookPage_ListItem item = pair.second();
 			
-			int iconHeight = 0;
-			if (item.icon != null) {
-				iconHeight = item.icon.height;
-			}
-			
-			int height = mc.fontRenderer.FONT_HEIGHT;
-			if (height < iconHeight) {
-				height = iconHeight;
-			};
-			
-			currentY += height;
-			if (currentY > this.listEndPos.second()) {
+			if (currentPage.size() > 0)
+				currentY += this.cacheItemSeperation.get(i);
+
+			if (currentY+getIconHeight(item.icon) > this.listEndPos.second()) {
 				// Next Page
 				this.cachePages.add(currentPage);
 				currentPage = new ArrayList();
@@ -149,19 +153,42 @@ public class BookPage_List extends BookPage {
 			Integer contentIndex = pair.first();
 			BookPage_ListItem item = pair.second().second();
 			
-			int iconWidth = 0;
-			if (item.icon != null) {
-				iconWidth = item.icon.width;
-			}
+			int iconWidth = getIconWidth(item.icon);
 			int x = gui.getGuiLeft() + this.listStartPos.first();
 			int y = lastY;
-			if (i != 0) {
-				y += this.cacheItemSeperation.get(i);
-			}
+			if (i != 0)
+				y += this.cacheItemSeperation.get(contentIndex);
 			
 			if (item.icon != null) {
 				gui.mc.getTextureManager().bindTexture(item.icon.texture);
-				gui.drawTexturedModalRect(x, y, item.icon.x, item.icon.y, item.icon.width, item.icon.height);
+				//gui.drawTexturedModalRect(
+				//	x, y,
+				//	item.icon.x, item.icon.y,
+				//	item.icon.textureWidth, item.icon.textureHeight
+				//);
+				
+				// Copied the tessellator, bufferbuilder section from gui.drawTexturedModalRect and changed it to work
+				// as i don't know if i'm an idiot or not when it comes to 'normal' functions
+				// But doing it this way has some bad image quality (pixels in wrong place or pixel holes near edge's)
+				int width = item.icon.textureWidth;
+		        int height = item.icon.textureHeight;
+		        int textureX = item.icon.x;
+		        int textureY = item.icon.y;
+		        float widthM = item.icon.width;
+		        float heightM = item.icon.height;
+				
+				float f = 0.00390625F;
+		        float f1 = 0.00390625F;
+		        Tessellator tessellator = Tessellator.getInstance();
+		        BufferBuilder bufferbuilder = tessellator.getBuffer();
+		        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+		        bufferbuilder.pos((double)(x + 0), (double)(y + heightM), (double)999).tex((double)((float)(textureX + 0) * 0.00390625F), (double)((float)(textureY + height) * 0.00390625F)).endVertex();
+		        bufferbuilder.pos((double)(x + widthM), (double)(y + heightM), (double)999).tex((double)((float)(textureX + width) * 0.00390625F), (double)((float)(textureY + height) * 0.00390625F)).endVertex();
+		        bufferbuilder.pos((double)(x + widthM), (double)(y + 0), (double)999).tex((double)((float)(textureX + width) * 0.00390625F), (double)((float)(textureY + 0) * 0.00390625F)).endVertex();
+		        bufferbuilder.pos((double)(x + 0), (double)(y + 0), (double)999).tex((double)((float)(textureX + 0) * 0.00390625F), (double)((float)(textureY + 0) * 0.00390625F)).endVertex();
+		        tessellator.draw();
+				
+				x += 1; // Spacing from icon
 			}
 			gui.mc.fontRenderer.drawString(item.name,
 					x + iconWidth,
@@ -185,16 +212,12 @@ public class BookPage_List extends BookPage {
 			Integer contentIndex = pair.first();
 			BookPage_ListItem item = pair.second().second();
 			
-			int iconWidth = 0;
-			int iconHeight = 0;
-			if (item.icon != null) {
-				iconWidth = item.icon.width;
-				iconHeight = item.icon.height;
-			}
+			int iconWidth = getIconWidth(item.icon);
+			int iconHeight = getIconHeight(item.icon);
 			int x = gui.getGuiLeft() + this.listStartPos.first();
 			int y = lastY;
 			if (i != 0) {
-				y += this.cacheItemSeperation.get(i);
+				y += this.cacheItemSeperation.get(contentIndex);
 			}
 			
 			int addY = gui.mc.fontRenderer.FONT_HEIGHT;
@@ -211,7 +234,8 @@ public class BookPage_List extends BookPage {
 	
 	@Override
 	public boolean pageClicked(int mouseX, int mouseY, int mouseButton, GUI_Book gui) {
-		super.pageClicked(mouseX, mouseY, mouseButton, gui);
+		if (super.pageClicked(mouseX, mouseY, mouseButton, gui))
+			return true;
 		
 		calculateCacheIfNotCalculated();
 		
@@ -223,16 +247,12 @@ public class BookPage_List extends BookPage {
 			Integer contentIndex = pair.first();
 			BookPage_ListItem item = pair.second().second();
 			
-			int iconWidth = 0;
-			int iconHeight = 0;
-			if (item.icon != null) {
-				iconWidth = item.icon.width;
-				iconHeight = item.icon.height;
-			}
+			int iconWidth = getIconWidth(item.icon);
+			int iconHeight = getIconHeight(item.icon);
 			int x = gui.getGuiLeft() + this.listStartPos.first();
 			int y = lastY;
 			if (i != 0) {
-				y += this.cacheItemSeperation.get(i);
+				y += this.cacheItemSeperation.get(contentIndex);
 			}
 			
 			int addY = gui.mc.fontRenderer.FONT_HEIGHT;
@@ -248,14 +268,20 @@ public class BookPage_List extends BookPage {
 		return false;
 	}
 	
+	// Helper/Convenience method
 	protected void addNewListItem(BookPage page, String name, String description, BookTextureData icon) {
-		// Helper/Convenience method
 		BookPage_ListItem item = new BookPage_ListItem(name, description, icon);
+		this.contents.add(new Pair(page, item));
+	}
+	
+	// Helper/Convenience method
+	protected void addNewListItem(BookPage page, String name, String description, BookTextureData icon, int nameColor) {
+		BookPage_ListItem item = new BookPage_ListItem(name, description, icon, nameColor);
 		this.contents.add(new Pair(page, item));
 	}
 }
 
-// Used by BookPage_List class nothing else
+// Used by BookPage_List class nothing else (Helper/Convenience Class)
 class BookPage_ListItem {
 	public String name;
 	public String description;
@@ -266,5 +292,12 @@ class BookPage_ListItem {
 		this.name = name;
 		this.description = description;
 		this.icon = icon;
+	}
+	
+	public BookPage_ListItem(String name, String description, BookTextureData icon, int nameColor) {
+		this.name = name;
+		this.description = description;
+		this.icon = icon;
+		this.nameColor = nameColor;
 	}
 }

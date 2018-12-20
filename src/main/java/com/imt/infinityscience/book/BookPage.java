@@ -13,8 +13,8 @@ public class BookPage {
 	// Used by other BookPage's if they want to use next/previous arrows (enableXXXArrow)
 	protected BookTextureData leftArrow = new BookTextureData(null, 111, 0, 17, 9);
 	protected BookTextureData rightArrow = new BookTextureData(null, 129, 0, 17, 9);
-	protected Pair<Integer, Integer> leftArrowGuiPos = new Pair(5, 150-leftArrow.height);
-	protected Pair<Integer, Integer> rightArrowGuiPos = new Pair(104-rightArrow.width, 150-rightArrow.height);
+	protected Pair<Integer, Integer> leftArrowGuiPos = new Pair(5, 152-leftArrow.height);
+	protected Pair<Integer, Integer> rightArrowGuiPos = new Pair(104-rightArrow.width, 152-rightArrow.height);
 	
 	protected boolean enableNextArrow = false;
 	protected boolean enablePrevArrow = false;
