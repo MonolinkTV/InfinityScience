@@ -1,24 +1,21 @@
-package com.imt.infinityscience.book;
+package com.imt.infinityscience.book.pagePresets;
 
-import java.awt.List;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import com.imt.infinityscience.book.pages.Book_MainPage;
+import com.imt.infinityscience.book.BookPage;
+import com.imt.infinityscience.book.BookTextureData;
 import com.imt.infinityscience.guis.GUI_Book;
 
 import akka.japi.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.ITextureObject;
-import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import scala.Console;
 import scala.actors.threadpool.Arrays;
 
 // TODO: Text wrapping (not that simple D:)
+// TODO: Optional Page Title (With Optional For Only First Page)
 
 public class BookPage_List extends BookPage {
 	protected Pair<Integer, Integer> listStartPos = new Pair(5, 5); // Based on GUI size
@@ -263,7 +260,7 @@ public class BookPage_List extends BookPage {
 			if (addY < iconHeight) addY = iconHeight;
 			if (mouseX > x && mouseX < x+gui.mc.fontRenderer.getStringWidth(item.name)+iconWidth &&
 				mouseY > y && mouseY < y+gui.mc.fontRenderer.FONT_HEIGHT) {
-				BookPage newPage = ContentItemClicked(item, desieredPage);
+				BookPage newPage = contentItemClicked(item, desieredPage);
 				if (newPage != null) {
 					this.setCurrentPage(newPage);
 				}
@@ -276,7 +273,7 @@ public class BookPage_List extends BookPage {
 	}
 	
 	// Callback (can be override for any other use)
-	protected BookPage ContentItemClicked(BookPage_ListItem item, Class<? extends BookPage> desieredPageClass) {
+	protected BookPage contentItemClicked(BookPage_ListItem item, Class<? extends BookPage> desieredPageClass) {
 		if (desieredPageClass != null) {
 			try {
 				return desieredPageClass.getConstructor().newInstance();
@@ -293,26 +290,5 @@ public class BookPage_List extends BookPage {
 	protected void addNewListItem(Class<? extends BookPage> pageClass, String name, String description, BookTextureData icon) {
 		BookPage_ListItem item = new BookPage_ListItem(name, description, icon);
 		this.contents.add(new Pair(pageClass, item));
-	}
-}
-
-// Used by BookPage_List class nothing else (Helper/Convenience Class)
-class BookPage_ListItem {
-	public String name;
-	public String description;
-	public BookTextureData icon;
-	public int nameColor = 4210752;
-
-	public BookPage_ListItem(String name, String description, BookTextureData icon) {
-		this.name = name;
-		this.description = description;
-		this.icon = icon;
-	}
-	
-	public BookPage_ListItem(String name, String description, BookTextureData icon, int nameColor) {
-		this.name = name;
-		this.description = description;
-		this.icon = icon;
-		this.nameColor = nameColor;
 	}
 }

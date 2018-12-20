@@ -3,8 +3,8 @@ package com.imt.infinityscience.book.pages;
 import java.util.ArrayList;
 
 import com.imt.infinityscience.Global;
-import com.imt.infinityscience.book.BookPage_List;
 import com.imt.infinityscience.book.BookTextureData;
+import com.imt.infinityscience.book.pagePresets.BookPage_List;
 import com.imt.infinityscience.guis.GUI_Book;
 
 import net.minecraft.client.Minecraft;

@@ -10,7 +10,7 @@ public class BookTextureData {
 	public int height; // Texture SRC Height
 	public int textureWidth; // Desired Width
 	public int textureHeight; // Desired Height
-	ResourceLocation texture; // If null use's book_base_assets
+	public ResourceLocation texture; // If null use's book_base_assets
 	
 	public BookTextureData(ResourceLocation texture, int x, int y, int width, int height) {
 		this.x = x;
