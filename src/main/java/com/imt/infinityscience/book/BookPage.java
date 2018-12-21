@@ -9,10 +9,10 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 
-/* NOTE: to refresh the page easily while making/updating ect use this snippet (really simple but good to note)
+/* NOTE: to refresh the default page easily while making/updating ECT use this snippet (really simple but good to note)
 @Override
 public void enterPage(BookPage fromPage) {
-	createContent(); // Or what ever you do to create the content
+	createContent(); // Or what ever you do to create the content, donn't forget to clear previous content!
 }
  */
 

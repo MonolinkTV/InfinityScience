@@ -14,8 +14,8 @@ import net.minecraft.util.ResourceLocation;
 
 
 /* Notes: 
- * I could have used GuiButton but i don't like it.
- * */
+ * I could have used GuiButton but i don't like it, and didn't get it to work.
+ */
 
 
 public class GUI_Book extends GuiContainer {

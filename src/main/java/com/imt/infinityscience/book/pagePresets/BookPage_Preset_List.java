@@ -15,22 +15,22 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import scala.actors.threadpool.Arrays;
 
 // TODO: Text wrapping (not that simple D:)
-// TODO: Optional Page Title (With Optional For Only First Page)
 
 public class BookPage_Preset_List extends BookPage {
 	protected Pair<Integer, Integer> listStartPos = new Pair(5, 5); // Based on GUI size
 	protected Pair<Integer, Integer> listEndPos = new Pair(103, 140); // Based on GUI size
 	
-	protected String title = null; // TODO
 	//                            Element Clicked Page, List Item
 	protected ArrayList<Pair<Class<? extends BookPage>, BookPage_Element_ListItem>> contents;
 	
 	//        PageIndex ContentIndex, Same as Contents
-	ArrayList<ArrayList<Pair<Integer, Pair<Class<? extends BookPage>, BookPage_Element_ListItem>>>> cachePages;
+	ArrayList<ArrayList<Pair<Integer, Pair<Class<? extends BookPage>, BookPage_Element_ListItem>>>> cachePages; // cahcePages or just pages?
 	//        Separation in pixels : get current item in this ArrayList to get pixels from previous item
 	ArrayList<Integer> cacheItemSeperation;
 	
-	protected int pageIndex;
+	protected String title = null; // TODO
+	protected boolean firsPageTitleOnly = false; // TODO
+	protected int pageIndex = 0;
 	
 	public BookPage_Preset_List() {
 		// WARNING: some reason mine craft is like NO to using my calculateCache methods in constructor (here), not a good idea anyway
