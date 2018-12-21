@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import com.imt.infinityscience.book.BookPage;
 import com.imt.infinityscience.book.BookTextureData;
+import com.imt.infinityscience.guis.GUI_Book;
 
+import akka.japi.Pair;
 import net.minecraft.item.Item;
 
 // NOTE: All text related stuff will need to support new line chars '\n' as it is not supported in minecraft very well
@@ -19,23 +21,29 @@ import net.minecraft.item.Item;
  *     TODO Maybe: Text bold/italic/underline
  */
 
-public class BookPage_Content extends BookPage {
-	// NOTE when implementing: may want an internal class to wrap all these supported types so code is cleaner? (class BookPage_ConentItem {})
-	ArrayList content; // TODO: add typing for a list of optional types of items (or if i use BookPage_ConentItem just use that)
+public class BookPage_Preset_Content extends BookPage {
+	ArrayList content;
+	//                  x,       y,        Wrapped Object
+	ArrayList<Pair<Pair<Integer, Integer>, BookPage_Element_ContentItem>> cacheContent;
 	
-	public BookPage_Content() {
+	public BookPage_Preset_Content() {
 		
 	}
 	
+	@Override
+	public void drawPage(float partialTicks, int mouseX, int mouseY, GUI_Book gui) {
+		super.drawPage(partialTicks, mouseX, mouseY, gui);
+	}
+	
 	protected void addContent(String text) {
-		this.content.add(text);
+		
 	}
 	
 	protected void addContent(BookTextureData texture) {
-		this.content.add(texture);
+		
 	}
 	
 	protected void addContent(Class<? extends Item> item) {
-		this.content.add(item);
+		
 	}
 }

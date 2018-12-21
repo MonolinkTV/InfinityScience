@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import com.imt.infinityscience.Global;
 import com.imt.infinityscience.book.BookTextureData;
-import com.imt.infinityscience.book.pagePresets.BookPage_List;
+import com.imt.infinityscience.book.pagePresets.BookPage_Preset_List;
 import com.imt.infinityscience.guis.GUI_Book;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
-public class Book_MainPage extends BookPage_List {
+public class BookPage_Home extends BookPage_Preset_List {
 	ResourceLocation iconTextures = new ResourceLocation(Global.MODID, "textures/gui/book_assets/test_icon.png");
 	int textHight = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
 	BookTextureData icon_sixStar = new BookTextureData(iconTextures, 0, 0, 32, 32, textHight, textHight);
@@ -18,16 +18,16 @@ public class Book_MainPage extends BookPage_List {
 	BookTextureData icon_gear = new BookTextureData(iconTextures, 64, 0, 32, 32, textHight, textHight);
 	BookTextureData icon_threeStar = new BookTextureData(iconTextures, 96, 0, 32, 32, textHight, textHight);
 	
-	public Book_MainPage() {
-		createList();
+	public BookPage_Home() {
+		createContent();
 	}
 	
-	protected void createList() {
+	protected void createContent() {
 		this.contents = new ArrayList();
 		this.pageIndex = 0;
 		
 		this.addNewListItem(null, "Long Desc Item", "Some rather long description\nfor no really good reason\nother than to test how it looks\nhope it works well.", icon_sixStar);
-		this.addNewListItem(Book_TestPage.class, "Goto Book_TestPage", "Name said it all", null);
+		this.addNewListItem(BookPage_Test.class, "Goto Book_TestPage", "Name said it all", null);
 		this.addNewListItem(null, "Test Item A", "Test Desc\nA", icon_sixStar);
 		this.addNewListItem(null, "Test Item B", "Test Desc\nB", icon_rArrow);
 		this.addNewListItem(null, "Test Item C", "Test Desc\nC", null);
@@ -56,5 +56,8 @@ public class Book_MainPage extends BookPage_List {
 		this.addNewListItem(null, "Test Item 7", "Test Desc\n7", null);
 		this.addNewListItem(null, "Test Item 8", "Test Desc\n8", null);
 		this.addNewListItem(null, "Test Item 9", "Test Desc\n9", null);
+		this.addNewListItem(null, "Test Item 10", "Test Desc\n10", null);
+		this.addNewListItem(null, "Test Item 11", "Test Desc\n11", null);
+		this.addNewListItem(null, "Test Item 12", "Test Desc\n12", null);
 	}
 }

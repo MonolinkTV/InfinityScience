@@ -9,28 +9,51 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 
+/* NOTE: to refresh the page easily while making/updating ect use this snippet (really simple but good to note)
+@Override
+public void enterPage(BookPage fromPage) {
+	createContent(); // Or what ever you do to create the content
+}
+ */
+
 public class BookPage {
-	// Used by other BookPage's if they want to use next/previous arrows (enableXXXArrow)
+	// Texture position and texture to bind with for left/right arrows
 	protected BookTextureData leftArrow = new BookTextureData(null, 111, 0, 17, 9);
 	protected BookTextureData rightArrow = new BookTextureData(null, 129, 0, 17, 9);
+	// position on the GUI to draw the left/right arrows
 	protected Pair<Integer, Integer> leftArrowGuiPos = new Pair(5, 152-leftArrow.height);
 	protected Pair<Integer, Integer> rightArrowGuiPos = new Pair(104-rightArrow.width, 152-rightArrow.height);
 	
+	// Weather to use the rightArrow or not
 	protected boolean enableNextArrow = false;
+	// Weather to use the leftArrow or not
 	protected boolean enablePrevArrow = false;
 	
+	// Called if rightArrow is enabled and to ask if you canGoForward for rightArrow
 	public boolean canGoForward() {
 		return false;
 	}
+	// Called if leftArrow is enabled and to ask if you canGoBack for leftArrow
 	public boolean canGoBack() {
 		return false;
 	}
 	
+	// Called when rightArrow is enabled and clicked
 	public BookPage nextPage() {
 		return null;
 	}
+	// Called when leftArrow is enabled and clicked
 	public BookPage prevPage() {
 		return null;
+	}
+	
+	// Left this page to go to nextPage due to left-click or alike (pageHistory)
+	public void leftPage(BookPage nextPage) {
+		
+	}
+	// Back from fromPage due to right-click or alike (pageHistory) (WARNING: Not called on the default page when first added!)
+	public void enterPage(BookPage fromPage) {
+		
 	}
 	
 	// Called same as mouseClicked() with a returned boolean for if it handled the click or not
@@ -42,7 +65,7 @@ public class BookPage {
 			guiMouseY > leftArrowGuiPos.second() && guiMouseY < leftArrowGuiPos.second() + leftArrow.height) {
 			BookPage newPage = prevPage();
 			if (newPage != null) {
-				gui.setCurrentPage(newPage);
+				gui.setNewPage(newPage);
 			}
 			gui.mc.player.playSound(SoundEvent.REGISTRY.getObject(new ResourceLocation("ui.button.click")), 0.25f, 1f);
 			return true;
@@ -51,7 +74,7 @@ public class BookPage {
 				   guiMouseY > rightArrowGuiPos.second() && guiMouseY < rightArrowGuiPos.second() + rightArrow.height) {
 			BookPage newPage = nextPage();
 			if (newPage != null) {
-				gui.setCurrentPage(newPage);
+				gui.setNewPage(newPage);
 			}
 			gui.mc.player.playSound(SoundEvent.REGISTRY.getObject(new ResourceLocation("ui.button.click")), 0.25f, 1f);
 			return true;
@@ -59,7 +82,7 @@ public class BookPage {
 		return false;
 	}
 	
-	// Called same as drawGuiContainerBackgroundLayer()
+	// Called same as drawGuiContainerBackgroundLayer() with extra GUI argument
 	public void drawPage(float partialTicks, int mouseX, int mouseY, GUI_Book gui) {
 		// NOTE: may want to draw different arrow when disabled, so just add else with the magic
 		if (enablePrevArrow) {
@@ -74,11 +97,6 @@ public class BookPage {
 		GlStateManager.color(1.0f, 1.0f, 1.0f);
 	}
 	
-	// Called same as drawScreen()
+	// Called same as drawScreen() with extra GUI argument
 	public void drawPageTop(float partialTicks, int mouseX, int mouseY, GUI_Book gui) {}
-	
-	// Helper/Convenience method
-	protected void setCurrentPage(BookPage page) {
-		GUI_Book.currentPage = page;
-	}
 }
